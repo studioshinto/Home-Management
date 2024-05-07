@@ -1,29 +1,38 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
-module.exports = mongoose.model("Person", mongoose.Schema({
+module.exports = mongoose.model(
+  "Person",
+  mongoose.Schema({
     personID: Number,
     name: String,
     img: String,
     color: String,
     creditStored: Number,
-    isAdmin: Boolean,
-    passcode: Number,
-}))
+  })
+);
 
-module.exports = mongoose.model("ChoreLog", mongoose.Schema({
+module.exports = mongoose.model(
+  "ChoreLog",
+  mongoose.Schema({
     personID: Number,
     dateCreated: Date,
-}))
+  })
+);
 
-module.exports = mongoose.model("Chore", mongoose.Schema({
+module.exports = mongoose.model(
+  "Chore",
+  mongoose.Schema({
     choreID: Number,
     name: String,
     img: String,
     assignedTo: Number,
-    subtasks: Array
-}))
+    subtasks: Array,
+  })
+);
 
-module.exports = mongoose.model("ExtraCredit", mongoose.Schema({
+module.exports = mongoose.model(
+  "ExtraCredit",
+  mongoose.Schema({
     extraCreditID: Number,
     name: String,
     img: String,
@@ -31,27 +40,37 @@ module.exports = mongoose.model("ExtraCredit", mongoose.Schema({
     assignedTo: Number,
     lastClaimed: Date,
     refreshRate: Number,
-}))
+  })
+);
 
-module.exports = mongoose.model("ScheduleItem", mongoose.Schema({
+module.exports = mongoose.model(
+  "ScheduleItem",
+  mongoose.Schema({
     day: Number,
     name: String,
     start: Number,
     end: Number,
-    assignedTo: Number
-}))
+    assignedTo: Number,
+  })
+);
 
-module.exports = mongoose.model("CalendarItem", mongoose.Schema({
+module.exports = mongoose.model(
+  "CalendarItem",
+  mongoose.Schema({
     id: String,
     startDate: Date,
     endDate: Date,
     title: String,
-    classes: Array
-}))
+    classes: Array,
+  })
+);
 
-module.exports = mongoose.model("Holiday", mongoose.Schema({
+module.exports = mongoose.model(
+  "Holiday",
+  mongoose.Schema({
     date: Date,
     name: String,
     countdown: Boolean,
-    countdownLength: Number
-}))
+    countdownLength: Number,
+  })
+);
