@@ -1,6 +1,6 @@
 const express = require("express");
-const mongoose = require("mongoose")
-const socket = require("socket.io");
+const mongoose = require("mongoose");
+bodyParser = require('body-parser');
 
 // App setup
 const PORT = process.env.PORT || 5000;
@@ -16,11 +16,15 @@ app.use(express.static("public"));
 
 app.use(cors());
 
+// Connect to MongoDB database
+mongoose.connect(uri, { useNewUrlParser: true })
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({ limit: "2mb" }));
+app.use(bodyParser.urlencoded({ limit: "2mb", extended: true, parameterLimit: 2000 }));
+
 var routes = require('./routes'); //importing route
 routes(app); //register the route
 
 
 server = app.listen(PORT, function () { console.log(`http://localhost:${PORT}`); });
-
-// Connect to MongoDB database
-mongoose.connect(uri, { useNewUrlParser: true })

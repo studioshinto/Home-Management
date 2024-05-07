@@ -68,7 +68,7 @@ function getCurrentTime() {
     <div class="w-full h-24 flex items-center justify-center text-4xl text-slate-600 border-b-2 border-gray-300 relative">
       DAILY SCHEDULE {{ days[dayID] }} {{ month }}/{{ day }}
       <RouterLink to="/schedule/edit" class="absolute top-5 right-5">
-        <div class="py-2 px-5 rounded bg-indigo-500 text-white text-lg">Edit</div>
+        <div class="py-2 px-5 rounded bg-indigo-400 text-white text-lg">Edit</div>
       </RouterLink>
     </div>
     <div class="w-full flex">
@@ -92,12 +92,7 @@ function getCurrentTime() {
           <div class="w-fit h-28 flex justify-start items-center bg-white border-b-4 border-gray-300 relative" v-for="(p, i) in people" :key="i">
             <div class="w-40 h-28" v-for="(h, i) in hours" :key="i"></div>
             <div class="absolute w-full h-full">
-              <div
-                v-for="(s, index) in p.schedule"
-                :key="index"
-                class="h-24 absolute top-[6px] rounded text-white flex text-center justify-center items-center break-words border-x-2 border-white border-opacity-20"
-                :style="'left: ' + s.start * 10 + 'rem; width: ' + (s.end - s.start) * 10 + 'rem; background-color: ' + p.color + ';'"
-              >
+              <div v-for="(s, index) in p.schedule" :key="index" class="h-24 absolute top-[6px] rounded text-white flex text-center justify-center items-center break-words border-x-2 border-white border-opacity-20" :style="'left: ' + s.start * 10 + 'rem; width: ' + (s.end - s.start) * 10 + 'rem; background-color: ' + p.color + ';'">
                 {{ s.name }}
               </div>
             </div>

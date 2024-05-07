@@ -44,12 +44,10 @@ module.exports = mongoose.model(
 );
 
 module.exports = mongoose.model(
-  "ScheduleItem",
+  "Schedule",
   mongoose.Schema({
     day: Number,
-    name: String,
-    start: Number,
-    end: Number,
+    scheduleItems: Array,
     assignedTo: Number,
   })
 );

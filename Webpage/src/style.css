@@ -6,9 +6,21 @@ body {
   width: 100vw;
   height: 100vh;
 }
-
+/* width */
 ::-webkit-scrollbar {
-  width: 0px;
+  width: 0.7rem;
+  height: 0.7rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #00000012;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #00000012;
+  border-radius: 2rem;
 }
 
 @tailwind base;
