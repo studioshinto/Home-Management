@@ -8,11 +8,14 @@ import axios from "axios";
 const globals = globalStore();
 const { apiURL, people } = storeToRefs(globals);
 
-apiURL.value = 'http://localhost:5000/'
+apiURL.value = 'https://home-management-api-4cjc.onrender.com/'
 
 var dataLoading = ref(true);
 
 onMounted(() => {
+  if (window.location.host.startsWith("localhost")) {
+    apiURL.value = 'http://localhost:5000/';
+  }
   getAllPeople();
 })
 
