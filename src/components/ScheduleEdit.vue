@@ -182,7 +182,7 @@ async function saveSchedule() {
             <div @mousedown="resizeStart(s, 'end', $event)" class="w-3 h-10 flex items-center bg-black bg-opacity-15" :class="{ 'cursor-col-resize': !isResizing }"><chevron-right-icon class="w-5 text-white" /></div>
             <div class="absolute top-0 right-0 rounded-full w-5 h-5 bg-black bg-opacity-15 hover:bg-opacity-30 text-white cursor-pointer flex justify-center items-center text-sm" @click="removeItem(index);">✖</div>
           </div>
-          <div v-for="(os, i) in openSlots" :key="i" class="absolute w-24 h-12 top-8 bg-slate-500 flex justify-center items-center rounded text-white font-bold text-4xl select-none cursor-pointer opacity-10 hover:opacity-50" :style="'left: ' + ((os * 10) + 2) + 'rem;'" @click="addItem(i)">+</div>
+          <div v-for="(os, i) in openSlots" :key="i" class="absolute w-24 h-12 top-8 bg-slate-500 flex justify-center items-center rounded text-white font-bold text-4xl select-none cursor-pointer opacity-10 hover:opacity-50" :style="'left: ' + ((os * 10) + 2) + 'rem;'" @click="addItem(os)">+</div>
         </div>
       </div>
     </div>
