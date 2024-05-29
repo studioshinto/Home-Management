@@ -84,7 +84,8 @@ async function checkAllDone() {
       if (c.personID == currentPerson.value._id) {
         completionFound = true;
         currentHour.value > 14 ? c.evening = true : c.morning = true;
-        currentPerson.value.completions = res.data;
+        // currentPerson.value.completions = res.data;
+        console.log(currentPerson.value.completions);
       }
     });
     if (!completionFound) {
@@ -99,41 +100,41 @@ async function checkAllDone() {
     <div class="loader"></div>
   </div>
   <div class="w-full h-full bg-slate-200" v-else-if="currentPerson == null">
-    <div class="w-full h-24 flex items-center justify-center text-4xl text-slate-600 absolute">
+    <div class="w-full h-24 flex items-center justify-center text-4xl text-slate-480 absolute">
       DAILY CHORES {{ days[dayID] }} {{ month }}/{{ day }}
       <RouterLink to="/">
-        <div class="absolute top-3 left-5 text-slate-400" @click="currentPerson = null;"><arrow-uturn-left-icon class="w-16 h-16" /></div>
+        <div class="absolute top-3 left-5 text-slate-400" @click="currentPerson = null;"><arrow-uturn-left-icon class="w-12 h-12" /></div>
       </RouterLink>
     </div>
     <div class="w-full h-full flex justify-center items-center">
       <div class="flex flex-wrap justify-evenly gap-5 w-full">
         <template v-for="(p, i) in people" :key="i">
-          <div class="w-60 h-64 flex flex-col justify-evenly items-center" v-if="!p.parent" @click="selectPerson(p)">
-            <div class="w-60 h-60 rounded-full overflow-hidden flex justify-center items-center" :style="'background-color: ' + p.color + ';'">
+          <div class="w-48 h-60 flex flex-col justify-evenly items-center" v-if="!p.parent" @click="selectPerson(p)">
+            <div class="w-48 h-48 rounded-full overflow-hidden flex justify-center items-center" :style="'background-color: ' + p.color + ';'">
               <img :src="p.img" class="rounded-full w-full h-full">
             </div>
-            <div class="font-bold text-2xl text-slate-600">{{ p.name }}</div>
+            <div class="font-bold text-2xl text-slate-800">{{ p.name }}</div>
           </div>
         </template>
       </div>
     </div>
   </div>
   <div class="w-full h-full bg-slate-200" v-else>
-    <div class="w-full h-32 flex items-center justify-center text-4xl text-slate-600 relative">
-      <div class="absolute top-5 left-5 text-slate-400" @click="currentPerson = null;"><arrow-uturn-left-icon class="w-16 h-16" /></div>
+    <div class="w-full h-24 flex items-center justify-center text-3xl text-slate-480 relative">
+      <div class="absolute top-5 left-5 text-slate-400" @click="currentPerson = null;"><arrow-uturn-left-icon class="w-12 h-12" /></div>
       {{ currentPerson.name }}'s Tasks - {{ days[dayID] }} {{ month }}/{{ day }}
     </div>
     <div class="w-full text-4xl text-center mt-36" v-if="currentPerson.completions.morning && currentHour < 14">All done with chores for now</div>
     <div class="w-full text-4xl text-center mt-36" v-else-if="currentPerson.completions.evening">All done with chores for the day</div>
     <div class="w-full text-4xl text-center mt-36" v-else-if="currentPerson.noChores">You have no chores assigned</div>
-    <div v-else class="w-full h-[calc(100vh-8rem)] flex flex-col items-center overflow-y-auto">
+    <div v-else class="w-full h-[calc(100vh-6rem)] flex flex-col items-center overflow-y-auto">
       <template v-for="(c, i) in chores" :key="i">
-        <div class="w-full max-w-4xl rounded-lg h-fit text-white text-2xl p-4 mb-5" :style="'background-color: ' + currentPerson.color + ';'" v-if="c.assignedTo == currentPerson._id">
-          <div class="w-full h-8 flex justify-center items-center">{{ c.name }}</div>
+        <div class="w-full max-w-2xl rounded-lg h-fit text-white text-xl p-4 mb-5" :style="'background-color: ' + currentPerson.color + ';'" v-if="c.assignedTo == currentPerson._id">
+          <div class="w-full h-6 flex justify-center items-center">{{ c.name }}</div>
           <div class="w-full flex flex-col gap-2 mt-4">
             <div class="w-full flex justify-between bg-white bg-opacity-10 relative" v-for="(st, ii) in c.subtasks" :key="ii" @click="st.done = !st.done; checkAllDone();">
-              <div class="w-full text-center leading-10 p-2">{{ st.name }}</div>
-              <div class="h-10 w-10 rounded leading-10 absolute top-2 right-2"><check-circle-icon class="w-full" :class="st.done ? 'opacity-100' : 'opacity-15'" /></div>
+              <div class="w-full text-center leading-8 p-2">{{ st.name }}</div>
+              <div class="h-8 w-8 rounded leading-8 absolute top-2 right-2"><check-circle-icon class="w-full" :class="st.done ? 'opacity-100' : 'opacity-15'" /></div>
             </div>
           </div>
         </div>

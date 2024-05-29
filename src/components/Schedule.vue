@@ -56,7 +56,7 @@ function getCurrentTime() {
         inline: 'center'
       });
     }
-  }, 200);
+  }, 500);
 }
 </script>
 
@@ -65,36 +65,36 @@ function getCurrentTime() {
     <div class="loader"></div>
   </div>
   <div class="w-full h-full bg-slate-200" v-else>
-    <div class="w-full h-24 flex items-center justify-center text-4xl text-slate-600 border-b-2 border-gray-300 relative">
+    <div class="w-full h-20 flex items-center justify-center text-3xl text-slate-600 border-b-2 border-gray-300 relative">
       DAILY SCHEDULE {{ days[dayID] }} {{ month }}/{{ day }}
       <RouterLink to="/">
-        <div class="absolute top-3 left-5 text-slate-400" @click="currentPerson = null;"><arrow-uturn-left-icon class="w-16 h-16" /></div>
+        <div class="absolute top-3 left-5 text-slate-400" @click="currentPerson = null;"><arrow-uturn-left-icon class="w-12 h-12" /></div>
       </RouterLink>
     </div>
     <div class="w-full flex">
-      <div class="flex flex-col justify-start w-60">
-        <div class="w-full h-16 flex justify-center items-center text-gray-500 border-b-4 border-r-4 font-bold border-gray-300">NAME</div>
-        <div class="w-full h-28 flex justify-start items-center p-3 bg-white border-r-4 border-b-4 gap-4 border-gray-300" v-for="(p, i) in people" :key="i">
-          <div class="w-20 h-20 rounded-full overflow-hidden flex justify-center items-center" :style="'background-color: ' + p.color + ';'">
+      <div class="flex flex-col justify-start w-44">
+        <div class="w-full h-10 flex justify-center items-center text-gray-500 border-b-4 border-r-4 font-bold border-gray-300">NAME</div>
+        <div class="w-full h-20 flex justify-start items-center p-3 bg-white border-r-4 border-b-4 gap-4 border-gray-300" v-for="(p, i) in people" :key="i">
+          <div class="w-14 h-14 rounded-full overflow-hidden flex justify-center items-center" :style="'background-color: ' + p.color + ';'">
             <img :src="p.img" class="rounded-full w-full h-full">
           </div>
-          <div class="font-bold text-2xl">{{ p.name }}</div>
+          <div class="font-bold text-lg text-slate-700">{{ p.name }}</div>
         </div>
       </div>
-      <div class="flex flex-col justify-start w-[calc(100%-15rem)]">
+      <div class="flex flex-col justify-start w-[calc(100%-11rem)]">
         <div class="w-full overflow-x-auto overflow-y-hidden" id="hoursWindow">
-          <div class="w-fit h-16 flex justify-center items-center text-gray-500 font-bold border-gray-300 border-b-4 relative">
-            <div class="border-x border-gray-300 w-40 h-full flex items-center justify-center" v-for="(h, i) in hours" :key="i">
+          <div class="w-fit h-10 flex justify-center items-center text-gray-500 font-bold border-gray-300 border-b-4 relative">
+            <div class="border-x border-gray-300 w-32 h-full flex items-center justify-center" v-for="(h, i) in hours" :key="i">
               {{ h }}
             </div>
-            <div class="absolute top-0 h-screen w-[3px] bg-slate-800 z-50" id="Arrow" :style="'left: ' + currentHours * 10 + 'rem;'">
+            <div class="absolute top-0 h-screen w-[3px] bg-slate-800 z-50" id="Arrow" :style="'left: ' + currentHours * 8 + 'rem;'">
               <div class="absolute -top-4 -left-[15px] text-slate-800 text-4xl">▾</div>
             </div>
           </div>
-          <div class="w-fit h-28 flex justify-start items-center bg-white border-b-4 border-gray-300 relative" v-for="(p, i) in people" :key="i">
-            <div class="w-40 h-28" v-for="(h, i) in hours" :key="i"></div>
+          <div class="w-fit h-20 flex justify-start items-center bg-white border-b-4 border-gray-300 relative" v-for="(p, i) in people" :key="i">
+            <div class="w-32 h-20" v-for="(h, i) in hours" :key="i"></div>
             <div class="absolute w-full h-full">
-              <div v-for="(s, index) in p.schedule" :key="index" class="h-24 absolute top-[6px] rounded text-white flex text-center justify-center items-center break-words border-x-2 border-white border-opacity-20" :style="'left: ' + s.start * 10 + 'rem; width: ' + (s.end - s.start) * 10 + 'rem; background-color: ' + p.color + ';'">
+              <div v-for="(s, index) in p.schedule" :key="index" class="h-16 absolute top-[6px] rounded text-white flex text-center justify-center items-center break-words border-x border-white border-opacity-20" :style="'left: ' + s.start * 8 + 'rem; width: ' + (s.end - s.start) * 8 + 'rem; background-color: ' + p.color + ';'">
                 {{ s.name }}
               </div>
             </div>
