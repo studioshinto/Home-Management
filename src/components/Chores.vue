@@ -84,12 +84,12 @@ async function checkAllDone() {
       if (c.personID == currentPerson.value._id) {
         completionFound = true;
         currentHour.value > 14 ? c.evening = true : c.morning = true;
-        // currentPerson.value.completions = res.data;
         console.log(currentPerson.value.completions);
       }
     });
     if (!completionFound) {
       completions.value.push(res.data);
+      currentHour.value > 14 ? currentPerson.value.completions.evening = true : currentPerson.value.completions.morning = true;
     }
   }
 }
@@ -120,14 +120,14 @@ async function checkAllDone() {
     </div>
   </div>
   <div class="w-full h-full bg-slate-200" v-else>
-    <div class="w-full h-24 flex items-center justify-center text-3xl text-slate-480 relative">
-      <div class="absolute top-5 left-5 text-slate-400" @click="currentPerson = null;"><arrow-uturn-left-icon class="w-12 h-12" /></div>
+    <div class="w-full h-20 flex items-center justify-center text-3xl text-slate-480 relative">
+      <div class="absolute top-3 left-5 text-slate-400" @click="currentPerson = null;"><arrow-uturn-left-icon class="w-12 h-12" /></div>
       {{ currentPerson.name }}'s Tasks - {{ days[dayID] }} {{ month }}/{{ day }}
     </div>
     <div class="w-full text-4xl text-center mt-36" v-if="currentPerson.completions.morning && currentHour < 14">All done with chores for now</div>
     <div class="w-full text-4xl text-center mt-36" v-else-if="currentPerson.completions.evening">All done with chores for the day</div>
     <div class="w-full text-4xl text-center mt-36" v-else-if="currentPerson.noChores">You have no chores assigned</div>
-    <div v-else class="w-full h-[calc(100%-6rem)] flex flex-col items-center overflow-y-auto">
+    <div v-else class="w-full h-[calc(100%-5rem)] flex flex-col items-center overflow-y-auto">
       <template v-for="(c, i) in chores" :key="i">
         <div class="w-full max-w-2xl rounded-lg h-fit text-white text-xl p-4 mb-5" :style="'background-color: ' + currentPerson.color + ';'" v-if="c.assignedTo == currentPerson._id">
           <div class="w-full h-6 flex justify-center items-center">{{ c.name }}</div>
