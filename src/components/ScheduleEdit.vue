@@ -58,7 +58,7 @@ async function getSchedule() {
     dataLoading.value = true;
     var sendDay = selectedDay.value;
     if (sendDay == 10) { sendDay = 1 }
-    const res = await axios.get(apiURL.value + "schedule?day=" + sendDay + "&assignedTo=" + selectedPerson.value.personID);
+    const res = await axios.get(apiURL.value + "schedule?day=" + sendDay + "&assignedTo=" + selectedPerson.value._id);
     console.log(res.data);
     //if there is a schedule for this person/day set it to currentSchedule
     dataLoading.value = false;
@@ -69,7 +69,7 @@ async function getSchedule() {
       currentSchedule.value = {
         day: selectedDay.value,
         scheduleItems: [],
-        assignedTo: selectedPerson.value.personID,
+        assignedTo: selectedPerson.value._id,
       };
     }
   }

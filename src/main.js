@@ -9,6 +9,7 @@ import Calendar from './components/Calendar.vue'
 import Schedule from './components/Schedule.vue'
 import ScheduleEdit from './components/ScheduleEdit.vue'
 import Chores from './components/Chores.vue'
+import ChoresEdit from './components/ChoresEdit.vue'
 
 const routes = [
     { path: '/', component: Home },
@@ -16,6 +17,7 @@ const routes = [
     { path: '/schedule', component: Schedule },
     { path: '/schedule/edit', component: ScheduleEdit },
     { path: '/chores', component: Chores},
+    { path: '/chores/edit', component: ChoresEdit},
 ]
 
 const router = createRouter({
