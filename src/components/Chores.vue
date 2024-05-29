@@ -34,12 +34,13 @@ async function getChores() {
 }
 
 function selectPerson(p) {
+  p.completions = null;
   completions.value.forEach(c => {
     if (c.personID == p._id) {
       p.completions = c;
     }
   });
-  if (!p.completions) { p.completions = { morning: false, evening: false } }
+  if (!p.completions) { p.completions = { personID: p._id, morning: false, evening: false } }
   //check if the jobs are done right now
   p.noChores = true;
   var allDone = true;
@@ -88,8 +89,10 @@ async function checkAllDone() {
       }
     });
     if (!completionFound) {
-      completions.value.push(res.data);
-      currentHour.value > 14 ? currentPerson.value.completions.evening = true : currentPerson.value.completions.morning = true;
+      var comp = { personID: currentPerson.value._id, morning: false, evening: false }
+      currentHour.value > 14 ? comp.evening = true : comp.morning = true;
+      completions.value.push(comp);
+      currentPerson.value.completions = comp;
     }
   }
 }
