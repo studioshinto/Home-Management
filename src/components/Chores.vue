@@ -127,7 +127,7 @@ async function checkAllDone() {
     <div class="w-full text-4xl text-center mt-36" v-if="currentPerson.completions.morning && currentHour < 14">All done with chores for now</div>
     <div class="w-full text-4xl text-center mt-36" v-else-if="currentPerson.completions.evening">All done with chores for the day</div>
     <div class="w-full text-4xl text-center mt-36" v-else-if="currentPerson.noChores">You have no chores assigned</div>
-    <div v-else class="w-full h-[calc(100vh-6rem)] flex flex-col items-center overflow-y-auto">
+    <div v-else class="w-full h-[calc(100%-6rem)] flex flex-col items-center overflow-y-auto">
       <template v-for="(c, i) in chores" :key="i">
         <div class="w-full max-w-2xl rounded-lg h-fit text-white text-xl p-4 mb-5" :style="'background-color: ' + currentPerson.color + ';'" v-if="c.assignedTo == currentPerson._id">
           <div class="w-full h-6 flex justify-center items-center">{{ c.name }}</div>
