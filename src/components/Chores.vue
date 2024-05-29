@@ -7,7 +7,7 @@ import axios from "axios";
 import { CheckCircleIcon, ArrowUturnLeftIcon } from '@heroicons/vue/24/outline';
 
 const globals = globalStore();
-const { apiURL, people, days, hours, dayID, month, day } = storeToRefs(globals);
+const { apiURL, people, days, hours, dayID, month, day, year } = storeToRefs(globals);
 
 
 const chores = ref([]);
@@ -21,13 +21,19 @@ onMounted(() => {
   getChores();
 });
 
+const currentDate = computed(() => {
+  var d = new Date;
+  return d.toISOString().split("T")[0];
+})
+
+
 const currentHour = computed(() => {
   var d = new Date;
   return d.getHours();
 })
 
 async function getChores() {
-  const res = await axios.get(apiURL.value + "chore");
+  const res = await axios.get(apiURL.value + "chore?date=" + currentDate.value);
   chores.value = res.data.allChores;
   completions.value = res.data.todaysCompletions;
   loading.value = false;
@@ -55,7 +61,7 @@ function selectPerson(p) {
     }
   });
   //if so, check if they need to be reset for evening zones
-  if (allDone && currentHour.value > 14 && p.completions.morning) {
+  if (allDone && currentHour.value >= 14 && p.completions.morning) {
     chores.value.forEach(c => {
       if (c.assignedTo == p._id) {
         c.subtasks.forEach(st => { st.done = false; });
@@ -78,19 +84,19 @@ async function checkAllDone() {
     }
   });
   if (allDone) {
-    const res = await axios.get(apiURL.value + "chore/done/" + currentPerson.value._id);
+    const res = await axios.get(apiURL.value + "chore/done/" + currentPerson.value._id + "?date=" + currentDate.value + "&evening=" + (currentHour.value >= 14));
     var completionFound = false;
     //update existing completions
     completions.value.forEach(c => {
       if (c.personID == currentPerson.value._id) {
         completionFound = true;
-        currentHour.value > 14 ? c.evening = true : c.morning = true;
+        currentHour.value >= 14 ? c.evening = true : c.morning = true;
         console.log(currentPerson.value.completions);
       }
     });
     if (!completionFound) {
       var comp = { personID: currentPerson.value._id, morning: false, evening: false }
-      currentHour.value > 14 ? comp.evening = true : comp.morning = true;
+      currentHour.value >= 14 ? comp.evening = true : comp.morning = true;
       completions.value.push(comp);
       currentPerson.value.completions = comp;
     }
