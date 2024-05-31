@@ -29,8 +29,8 @@ async function keepAlive() {
 function getCurrentDate() {
   const date = new Date();
   dayID.value = date.getDay();
-  month.value = date.getUTCMonth() + 1;
-  day.value = date.getUTCDate();
+  month.value = date.getMonth() + 1;
+  day.value = date.getDate();
   year.value = date.getFullYear();
   //check again every hour
   setTimeout(() => {

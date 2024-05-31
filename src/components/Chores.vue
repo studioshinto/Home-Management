@@ -22,8 +22,7 @@ onMounted(() => {
 });
 
 const currentDate = computed(() => {
-  var d = new Date;
-  return d.toISOString().split("T")[0];
+  return year.value + "-" + month.value + "-" + day.value
 })
 
 
