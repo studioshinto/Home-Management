@@ -1,9 +1,10 @@
 <script setup>
-import { ref, onMounted, KeepAlive } from "vue";
+import { ref, onMounted } from "vue";
 import { RouterView } from 'vue-router';
 import { storeToRefs } from "pinia";
 import { globalStore } from "./store/globals.ts";
 import axios from "axios";
+import Screensaver from "./components/Screensaver.vue";
 
 const globals = globalStore();
 const { apiURL, people, dayID, year, month, day } = storeToRefs(globals);
@@ -11,14 +12,17 @@ const { apiURL, people, dayID, year, month, day } = storeToRefs(globals);
 apiURL.value = 'https://home-management-api-4cjc.onrender.com/'
 
 var dataLoading = ref(true);
+const showScreenSaver = ref(false);
+const screenSaverTimeout = ref(null);
 
 onMounted(() => {
   if (window.location.host.startsWith("localhost")) {
-    apiURL.value = 'http://localhost:5000/';
+    // apiURL.value = 'http://localhost:5000/';
   }
   keepAlive();
   getAllPeople();
   getCurrentDate();
+  resetTimeout();
 })
 //keep the hosted service alive
 async function keepAlive() {
@@ -50,12 +54,25 @@ async function getAllPeople() {
   people.value = res.data;
   dataLoading.value = false;
 }
+
+function resetTimeout() {
+  showScreenSaver.value = false;
+  clearTimeout(screenSaverTimeout.value);
+  screenSaverTimeout.value = setTimeout(startScreensaver, 30000);
+}
+
+function startScreensaver() {
+  showScreenSaver.value = true;
+}
 </script>
 
 <template>
-  <!-- Loader -->
-  <div class="w-full h-full flex justify-center items-center bg-slate-200" v-if="dataLoading">
-    <div class="loader"></div>
+  <div class="w-full h-full" @click="resetTimeout">
+    <!-- Loader -->
+    <div class="w-full h-full flex justify-center items-center bg-slate-200" v-if="dataLoading">
+      <div class="loader"></div>
+    </div>
+    <Screensaver v-else-if="showScreenSaver == true" />
+    <RouterView v-else />
   </div>
-  <RouterView v-else />
 </template>
